@@ -5,8 +5,7 @@
  * Author : Ron.
  * Date: 2020-3-14 9:49
  */
-import XChart from './xchart'
 import svg from './svg'
-let node = svg("#root");
 
-XChart("#root");
+let Svg = svg("#root", 200, 250);
+Svg.line(10, 110, 50, 150).stroke("orange").fill("transparent").strokeWidth("5");
