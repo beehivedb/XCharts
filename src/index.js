@@ -5,7 +5,9 @@
  * Author : Ron.
  * Date: 2020-3-14 9:49
  */
-import svg from './svg'
+import xc from './xchart'
 
-let Svg = svg("#root", 200, 250);
-Svg.line(10, 110, 50, 150).stroke("orange").fill("transparent").strokeWidth("5");
+var bar = new xc.BarChart({"container":"#root", "width": 200, "height": 200});
+
+abc.a = a;
+
