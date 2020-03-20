@@ -259,7 +259,7 @@ class Container{
     }
 
     attr(key, value){
-        if(arguments.length == 1 && arguments[0] instanceof "object"){
+        if(arguments.length == 1 && typeof arguments[0] == "object"){
             setAttribute(this.$el, arguments[0]);
         }
         if(key && value){

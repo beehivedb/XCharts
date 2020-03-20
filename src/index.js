@@ -7,6 +7,6 @@
  */
 import xc from './xchart'
 
-var bar = new xc.BarChart({"container":"#root", "width": 200, "height": 200});
+var bar = new xc.BarChart({"container":"#root", "width": 400, "height": 200});
 
-
+bar.data([2001, 2002, 2003, 2004, 2010, 2011, 2012, 2020]);

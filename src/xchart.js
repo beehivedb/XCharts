@@ -5,31 +5,66 @@
  * Author : Ron.
  * Date: 2020-3-14 9:49
  */
-import Svg from './svg'
+import Svg from './svg';
+import Com from './common';
 
-class BaseChart{
-    constructor(conf){
-        this.$svg = new Svg(conf.container, conf.width, conf.height);
+function range(max, min, num){
+    let x = (max - min)/num;
+    let res = [];
+    for(let i = 0; i < num; i++){
+        res.push(Math.ceil(min + x * i));
     }
-    data(da){
-        if(typeof da == "array"){
-            da.forEach(element => {
-                
-            });
-        }
-    }
+    return res;
 }
 
-export class BarChart extends BaseChart{
-    constructor(conf){
-        super(conf);
-        let line = Svg.line(10, 110, 50, 150).stroke("orange").fill("transparent").strokeWidth("5");
-        let rect = Svg.rect(0, 0, 20, 20).attr("rx", "3").attr("ry", "3").fill("red");
-        let path = Svg.path().moveTo(10, 10).horizontal(90).vertical(90).horizontal(10).closePath().attr("id", "hello");
-        let tx = Svg.text(30, 30).tspan({"fill": "red"}, "GoodLuck").textPath("hello", "layout by path.");
-        this.$svg.appendChild(rect).appendChild(line).appendChild(path).appendChild(tx);
+class Axis{
+    /**
+     * data: 坐标轴数据。
+     * ticks: 刻度数。 
+     * isX: 纵轴或横轴。
+     */
+    constructor(data, ticks){
+        this.array = [];
+        if(Array.isArray(data)){
+            let mx = Com.max(data);
+            let mn = Com.min(data);
+            this.array = range(mx, mn, ticks);
+        }
+    }
+    getXAxis(width, height, orient){
+        let g = Svg.group();
+        let y = orient && orient=="top" ? 0 : height;
+        let x = 0;
+        let step  = width / this.array.length;
+        let l = Svg.line(0, y - 20, width, y-20).stroke("black");
+        g.appendChild(l);
+        for(let i = 0; i < this.array.length; i++){
+            x = i * step;
+            let tx = this.array[i];
+            let t = Svg.text(x, y, tx);
+            g.appendChild(t);
+        }
+        return g;
     }
     
+    // getYAxis(width, height, orient){
+
+    // }
+}
+
+export class BarChart{
+    constructor(conf){
+        this.$svg = new Svg(conf.container, conf.width, conf.height);
+        this.$width = conf.width; 
+        this.$height = conf.height;
+    }
+    data(dat){
+        let ax = new Axis(dat, 7);
+        let xAxis = ax.getXAxis(this.$width, this.$height, "buttom");
+        this.$svg.appendChild(xAxis);
+        let t = Svg.text(10, 10, 100);
+        this.$svg.appendChild(t);
+    }
 }
 
 
