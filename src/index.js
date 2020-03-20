@@ -9,5 +9,4 @@ import xc from './xchart'
 
 var bar = new xc.BarChart({"container":"#root", "width": 200, "height": 200});
 
-abc.a = a;
 
